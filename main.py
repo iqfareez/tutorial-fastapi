@@ -6,22 +6,18 @@ app = FastAPI()
 class Msg(BaseModel):
     msg: str
 
+states = ["Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan", "Pahang", "Perak", "Perlis", "Pulau Pinang", "Sabah", "Sarawak", "Selangor", "Terengganu", "Kuala Lumpur", "Labuan", "Putrajaya"]
+
 
 @app.get("/")
 async def root():
     return {"message": "Hello World. Welcome to FastAPI!"}
 
 
-@app.get("/path")
+@app.get("/states")
 async def demo_get():
-    return {"message": "This is /path endpoint, use a post request to transform the text to uppercase"}
+    return {"negeri": states}
 
-
-@app.post("/path")
-async def demo_post(inp: Msg):
-    return {"message": inp.msg.upper()}
-
-
-@app.get("/path/{path_id}")
-async def demo_get_path_id(path_id: int):
-    return {"message": f"This is /path/{path_id} endpoint, use post request to retrieve result"}
+@app.get("/states/{state_index}")
+async def demo_get_path_id(state_index: int):
+    return {"message": states[state_index]}
